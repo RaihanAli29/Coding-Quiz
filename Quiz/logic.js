@@ -13,8 +13,6 @@ let choiceBox = document.querySelector('#choices');
 let userScore = 0;
 let questionID = 0;
 
-// function list
-
 // start button to initiate timer + first question appear
 function init() {
   startScreen.classList.toggle("start")
@@ -42,7 +40,7 @@ function timeRemaining() {
 function showQuestion() {
   let question = questionList[questionID];
   document.querySelector("#question-title").textContent = question.title;
-  choiceBox.textContent = " ";
+  choiceBox.innerHTML = ''; // Clear the choiceBox before adding new buttons
   for (let i = 0; i < question.choices.length; i++) {
     let choiceButton = document.createElement("button");
     choiceButton.textContent = question.choices[i];
@@ -51,28 +49,41 @@ function showQuestion() {
     choiceButton.setAttribute("correctID", question.correctAnswer);
     choiceButton.addEventListener("click", checkAnswer);
   }
+  // Add a line break under choices
+  let lineBreak = document.createElement("br");
+  choiceBox.appendChild(lineBreak);
+}
+
+function checkAnswer(event) {
+  let button = event.target;
+  let choiceID = button.getAttribute("choiceID");
+  let correctID = button.getAttribute("correctID");
+  let feedback = document.getElementById("feedback");
+  if (choiceID === correctID) {
+    userScore += 1;
+    feedback.textContent = "Correct!";
+  } else {
+    countdown -= 10; // Penalise 10 seconds for wrong answer
+    feedback.textContent = "Wrong!";
+  }
+  // Show the feedback immediately
+  feedback.classList.remove("hide");
+  // Hide the feedback after 1.5 seconds
+  setTimeout(function() {
+    feedback.classList.add("hide");
+    nextQuestion();
+  }, 1500);
 }
 
 function nextQuestion() {
-    if (questionID < questionList.length - 1) {
-      questionID++;
-      showQuestion();
-    } else {
-      endQuiz();
-    }
+  if (questionID < questionList.length - 1) {
+    questionID++;
+    showQuestion();
+  } else {
+    endQuiz();
   }
-  
-  function checkAnswer(event) {
-    let button = event.target;
-    let choiceID = button.getAttribute("choiceID");
-    let correctID = button.getAttribute("correctID");
-    if (choiceID === correctID) {
-      userScore += 1;
-    } else {
-      countdown -= 4;
-    };
-    nextQuestion();
-  }
+}
+
 
 // Function to end the quiz and display the end screen
 function endQuiz() {
@@ -81,3 +92,4 @@ function endQuiz() {
   endScreen.classList.remove("hide");
   document.querySelector("#final-score").textContent = userScore;
 }
+
