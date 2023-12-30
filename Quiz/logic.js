@@ -1,3 +1,7 @@
+// Sound effects for correct and incorrect answers
+const correctSound = new Audio('correct.wav');
+const incorrectSound = new Audio('incorrect.wav');
+
 // global variables
 let startButton = document.querySelector("#start");
 startButton.addEventListener("click", init);
@@ -62,9 +66,13 @@ function checkAnswer(event) {
   if (choiceID === correctID) {
     userScore += 1;
     feedback.textContent = "Correct!";
+    // Play the correct sound
+    correctSound.play();
   } else {
-    countdown -= 10; // Penalise 10 seconds for wrong answer
+    countdown -= 5; // Minus 5 seconds for wrong answer
     feedback.textContent = "Wrong!";
+    // Play the incorrect sound
+    incorrectSound.play();
   }
   // Show the feedback immediately
   feedback.classList.remove("hide");
@@ -84,12 +92,27 @@ function nextQuestion() {
   }
 }
 
-
 // Function to end the quiz and display the end screen
 function endQuiz() {
   clearInterval(intervalID);
   questionScreen.classList.add("hide");
   endScreen.classList.remove("hide");
   document.querySelector("#final-score").textContent = userScore;
+  // Call the function to save the initials and score in local storage
+  saveScoreToLocalStorage(userScore);
 }
 
+// Function to save the user's initials and score in local storage for the high scores board
+function saveScoreToLocalStorage(score) {
+    // Retrieve existing scores from local storage or initialize an empty array
+    let highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+    // Add the new score to the array
+    highScores.push({ initials: initials, score: score });
+    // Store the updated scores back in local storage
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+  }
+  // Display the updated high scores
+  displayHighScores();
+
+// Call the function to display high scores when the page loads
+displayHighScores();

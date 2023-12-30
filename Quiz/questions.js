@@ -8,7 +8,7 @@ let questionList = [
     },
     {
         title: 'How do you create a function in JavaScript?',
-        choices: ['1. function myFunction()', '2. function = myFunction', '3. function: myFuction'],
+        choices: ['1. function myFunction()', '2. function = myFunction', '3. function: myFunction'],
         correctAnswer: 0,
     },
     {
