@@ -31,7 +31,10 @@ Acess the Quiz: [http://raihanali29.github.io/coding-quiz](http://raihanali29.gi
 
 ## Resources
 - Loading and Playing Sound Files (https://dobrian.github.io/cmp/topics/sample-recording-and-playback-with-web-audio-api/1.loading-and-playing-sound-files.html#:~:text=Method%202%3A%20JavaScript,back%20the%20sound%20with%20the%20.)
-- 
+- JSON.stringify() (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)
+- JSON.parse() (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse)
+- Local Storage (https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
+- EventTarget: addEventListener() method (https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)
 
 ## Acknowledgements
 Mitch J Sutherland, leading a group session diving into the logic.js aspect [https://github.com/mitchjsutherland0](https://github.com/mitchjsutherland)
