@@ -1,4 +1,4 @@
-// Variable for questions array
+// Variable for Questions Array
 
 let questionList = [
     {

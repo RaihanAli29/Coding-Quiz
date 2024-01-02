@@ -2,7 +2,7 @@
 const correctSound = new Audio('correct.wav');
 const incorrectSound = new Audio('incorrect.wav');
 
-// global variables
+// Global variables
 let startButton = document.querySelector("#start");
 startButton.addEventListener("click", init);
 
@@ -17,12 +17,12 @@ let choiceBox = document.querySelector('#choices');
 let userScore = 0;
 let questionID = 0;
 
-// start button to initiate timer + first question appear
+// Start button to initiate timer and display the first question
 function init() {
-  startScreen.classList.toggle("start")
-  startScreen.classList.toggle("hide")
-  questionScreen.classList.toggle("hide")
-  questionScreen.classList.toggle("start")
+  startScreen.classList.toggle("start");
+  startScreen.classList.toggle("hide");
+  questionScreen.classList.toggle("hide");
+  questionScreen.classList.toggle("start");
   startTimer();
   timeRemaining();
   showQuestion();
@@ -69,7 +69,7 @@ function checkAnswer(event) {
     // Play the correct sound
     correctSound.play();
   } else {
-    countdown -= 5; // Minus 5 seconds for wrong answer
+    countdown -= 5; // Deduct 5 seconds for a wrong answer
     feedback.textContent = "Wrong!";
     // Play the incorrect sound
     incorrectSound.play();
@@ -98,21 +98,17 @@ function endQuiz() {
   questionScreen.classList.add("hide");
   endScreen.classList.remove("hide");
   document.querySelector("#final-score").textContent = userScore;
-  // Call the function to save the initials and score in local storage
-  saveScoreToLocalStorage(userScore);
+  saveScoreToLocalStorage(userScore); // Call the function to save the score in local storage
+  window.location.href = "highscores.html"; // Redirect to highscores.html
 }
 
-// Function to save the user's initials and score in local storage for the high scores board
+// Function to save the user's score in local storage for the high scores board
 function saveScoreToLocalStorage(score) {
-    // Retrieve existing scores from local storage or initialize an empty array
-    let highScores = JSON.parse(localStorage.getItem("highScores")) || [];
-    // Add the new score to the array
-    highScores.push({ initials: initials, score: score });
-    // Store the updated scores back in local storage
-    localStorage.setItem("highScores", JSON.stringify(highScores));
-  }
-  // Display the updated high scores
-  displayHighScores();
+  let initials = prompt("Enter your initials:"); // Prompt the user to enter their initials
+  let highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+  highScores.push({ initials: initials, score: score });
+  localStorage.setItem("highScores", JSON.stringify(highScores));
+}
 
 // Call the function to display high scores when the page loads
 displayHighScores();
